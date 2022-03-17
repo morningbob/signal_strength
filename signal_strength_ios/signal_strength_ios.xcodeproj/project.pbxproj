@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E520E27E26D7100F89909 /* AppDelegate.swift */; };
 		E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521027E26D7100F89909 /* SceneDelegate.swift */; };
-		E79E521327E26D7100F89909 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521227E26D7100F89909 /* ViewController.swift */; };
+		E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521227E26D7100F89909 /* IntroViewController.swift */; };
 		E79E521627E26D7100F89909 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E79E521427E26D7100F89909 /* Main.storyboard */; };
 		E79E521827E26D7200F89909 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E79E521727E26D7200F89909 /* Assets.xcassets */; };
 		E79E521B27E26D7200F89909 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E79E521927E26D7200F89909 /* LaunchScreen.storyboard */; };
 		E79E522627E26D7300F89909 /* signal_strength_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E522527E26D7300F89909 /* signal_strength_iosTests.swift */; };
 		E79E523027E26D7300F89909 /* signal_strength_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E522F27E26D7300F89909 /* signal_strength_iosUITests.swift */; };
 		E79E523227E26D7300F89909 /* signal_strength_iosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E523127E26D7300F89909 /* signal_strength_iosUITestsLaunchTests.swift */; };
+		E79E523F27E276B400F89909 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E523E27E276B400F89909 /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,7 @@
 		E79E520B27E26D7100F89909 /* signal_strength_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signal_strength_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79E520E27E26D7100F89909 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E79E521027E26D7100F89909 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E79E521227E26D7100F89909 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E79E521227E26D7100F89909 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E79E521527E26D7100F89909 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E79E521727E26D7200F89909 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E79E521A27E26D7200F89909 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		E79E522B27E26D7300F89909 /* signal_strength_iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = signal_strength_iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79E522F27E26D7300F89909 /* signal_strength_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signal_strength_iosUITests.swift; sourceTree = "<group>"; };
 		E79E523127E26D7300F89909 /* signal_strength_iosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signal_strength_iosUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E79E523E27E276B400F89909 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +103,12 @@
 			children = (
 				E79E520E27E26D7100F89909 /* AppDelegate.swift */,
 				E79E521027E26D7100F89909 /* SceneDelegate.swift */,
-				E79E521227E26D7100F89909 /* ViewController.swift */,
+				E79E521227E26D7100F89909 /* IntroViewController.swift */,
 				E79E521427E26D7100F89909 /* Main.storyboard */,
 				E79E521727E26D7200F89909 /* Assets.xcassets */,
 				E79E521927E26D7200F89909 /* LaunchScreen.storyboard */,
 				E79E521C27E26D7200F89909 /* Info.plist */,
+				E79E523E27E276B400F89909 /* ResultViewController.swift */,
 			);
 			path = signal_strength_ios;
 			sourceTree = "<group>";
@@ -258,9 +261,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E79E521327E26D7100F89909 /* ViewController.swift in Sources */,
+				E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */,
 				E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */,
 				E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */,
+				E79E523F27E276B400F89909 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
