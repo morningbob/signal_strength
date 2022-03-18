@@ -98,11 +98,15 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="peripharlNameLabel" destination="hoC-6Q-56Z" id="NbS-JO-8ke"/>
+                                            <outlet property="peripheralNameLabel" destination="hoC-6Q-56Z" id="kXm-ja-193"/>
                                             <outlet property="rssiLabel" destination="vD5-LJ-0aP" id="Hi1-ac-Emi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="CSW-Js-vgF" id="md1-7t-bpR"/>
+                                    <outlet property="delegate" destination="CSW-Js-vgF" id="HXU-FS-oEj"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OtZ-nw-CPb"/>
@@ -115,6 +119,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AYV-HC-03F"/>
+                    <connections>
+                        <outlet property="tableView" destination="nA4-R3-Vld" id="RrF-vz-xca"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsm-TN-UID" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

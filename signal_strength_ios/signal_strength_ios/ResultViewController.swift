@@ -8,16 +8,16 @@
 import UIKit
 import CoreBluetooth
 
-class ResultViewController: UIViewController , CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ResultViewController: UIViewController , CBCentralManagerDelegate,
+    UITableViewDelegate, UITableViewDataSource {
     
     
+    @IBOutlet weak var tableView: UITableView!
     private var centralManager: CBCentralManager!
     private var discoveredPeripherals = [CBPeripheral]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
         
@@ -50,11 +50,13 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate, UITable
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print("did discovered")
-        print("device: \(peripheral.description)")
+        print("device: \(peripheral.identifier)")
         print("rssi: \(peripheral.rssi)")
         self.discoveredPeripherals.append(peripheral)
+        tableView.reloadData()
+        
     }
-
+            
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return discoveredPeripherals.count
     }
@@ -64,17 +66,19 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate, UITable
         let peripheral = self.discoveredPeripherals[(indexPath as NSIndexPath).row]
         
         cell.peripheralNameLabel?.text = peripheral.description
+
         cell.rssiLabel?.text = peripheral.rssi?.stringValue
         
         cell.rssiLabel.text = "1"
         
-        
+        //tableView.insertRows(at: [indexPath], with: .fade)
         return cell
     }
     
 }
 
 class PeripheralCell : UITableViewCell {
+    
     
     @IBOutlet weak var peripheralNameLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
