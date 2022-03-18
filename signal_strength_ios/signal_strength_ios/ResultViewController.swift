@@ -14,12 +14,18 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     
     @IBOutlet weak var tableView: UITableView!
     private var centralManager: CBCentralManager!
-    private var discoveredPeripherals = [CBPeripheral]()
+    private var discoveredPeripherals = [Peripheral]()
+    private var discovered = Set<CBPeripheral>()
+    private var appDelegate: AppDelegate!
+    private var dataController: DataController!
+    //private var context : ViewContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate
         
     }
     
@@ -51,25 +57,35 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print("did discovered")
         print("device: \(peripheral.identifier)")
-        print("rssi: \(peripheral.rssi)")
-        self.discoveredPeripherals.append(peripheral)
+        //print("rssi: \(peripheral.rssi)")
+        //self.discoveredPeripherals.append(peripheral)
+        let incomingRSSI = Double(truncating: RSSI)
+        print("incoming rssi: \(incomingRSSI)")
+        //self.discovered.insert(peripheral)
+        //self.discoveredPeripherals = Array(self.discovered).sorted(by: //{$0.identifier.uuidString > $1.identifier.uuidString})
+        // create a new peripheral
+        //let newDevice = Peripheral(name: peripheral.name, identifier: peripheral.identifier.uuidString, rssi: String(incomingRSSI))
+        let newDevice = Peripheral()
+        newDevice.name = peripheral.name
+        newDevice.identifier = peripheral.identifier.uuidString
+        newDevice.rssi = String(incomingRSSI)
+        self.discoveredPeripherals.append(newDevice)
+        //print(peripheral.readRSSI())
         tableView.reloadData()
         
     }
-            
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return discoveredPeripherals.count
+        return discovered.count//discoveredPeripherals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : PeripheralCell! = tableView.dequeueReusableCell(withIdentifier: "PeripheralCellUnit")! as? PeripheralCell
         let peripheral = self.discoveredPeripherals[(indexPath as NSIndexPath).row]
         
-        cell.peripheralNameLabel?.text = peripheral.description
+        cell.peripheralNameLabel?.text = peripheral.name
 
-        cell.rssiLabel?.text = peripheral.rssi?.stringValue
-        
-        cell.rssiLabel.text = "1"
+        cell.rssiLabel?.text = peripheral.rssi
         
         //tableView.insertRows(at: [indexPath], with: .fade)
         return cell

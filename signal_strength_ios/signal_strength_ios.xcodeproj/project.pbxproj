@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E730DBAE27E5032400DE7F22 /* Peripheral.xcdatamodeld */; };
+		E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E730DBB127E51AE600DE7F22 /* DataController.swift */; };
 		E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E520E27E26D7100F89909 /* AppDelegate.swift */; };
 		E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521027E26D7100F89909 /* SceneDelegate.swift */; };
 		E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521227E26D7100F89909 /* IntroViewController.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E730DBAF27E5032400DE7F22 /* Peripheral.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Peripheral.xcdatamodel; sourceTree = "<group>"; };
+		E730DBB127E51AE600DE7F22 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		E79E520B27E26D7100F89909 /* signal_strength_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signal_strength_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79E520E27E26D7100F89909 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E79E521027E26D7100F89909 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 		E79E520227E26D7100F89909 = {
 			isa = PBXGroup;
 			children = (
+				E730DBAE27E5032400DE7F22 /* Peripheral.xcdatamodeld */,
 				E79E520D27E26D7100F89909 /* signal_strength_ios */,
 				E79E522427E26D7300F89909 /* signal_strength_iosTests */,
 				E79E522E27E26D7300F89909 /* signal_strength_iosUITests */,
@@ -109,6 +114,7 @@
 				E79E521927E26D7200F89909 /* LaunchScreen.storyboard */,
 				E79E521C27E26D7200F89909 /* Info.plist */,
 				E79E523E27E276B400F89909 /* ResultViewController.swift */,
+				E730DBB127E51AE600DE7F22 /* DataController.swift */,
 			);
 			path = signal_strength_ios;
 			sourceTree = "<group>";
@@ -261,6 +267,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */,
+				E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */,
 				E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */,
 				E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */,
 				E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */,
@@ -606,6 +614,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E730DBAE27E5032400DE7F22 /* Peripheral.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E730DBAF27E5032400DE7F22 /* Peripheral.xcdatamodel */,
+			);
+			currentVersion = E730DBAF27E5032400DE7F22 /* Peripheral.xcdatamodel */;
+			path = Peripheral.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E79E520327E26D7100F89909 /* Project object */;
 }
