@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E72BA62B27E649FE0097CB79 /* PeripheralStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BA62A27E649FE0097CB79 /* PeripheralStruct.swift */; };
 		E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E730DBAE27E5032400DE7F22 /* Peripheral.xcdatamodeld */; };
 		E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E730DBB127E51AE600DE7F22 /* DataController.swift */; };
 		E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E520E27E26D7100F89909 /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E72BA62A27E649FE0097CB79 /* PeripheralStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralStruct.swift; sourceTree = "<group>"; };
 		E730DBAF27E5032400DE7F22 /* Peripheral.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Peripheral.xcdatamodel; sourceTree = "<group>"; };
 		E730DBB127E51AE600DE7F22 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		E79E520B27E26D7100F89909 /* signal_strength_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signal_strength_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E72BA62927E649B20097CB79 /* structs */ = {
+			isa = PBXGroup;
+			children = (
+				E72BA62A27E649FE0097CB79 /* PeripheralStruct.swift */,
+			);
+			path = structs;
+			sourceTree = "<group>";
+		};
 		E79E520227E26D7100F89909 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 		E79E520D27E26D7100F89909 /* signal_strength_ios */ = {
 			isa = PBXGroup;
 			children = (
+				E72BA62927E649B20097CB79 /* structs */,
 				E79E520E27E26D7100F89909 /* AppDelegate.swift */,
 				E79E521027E26D7100F89909 /* SceneDelegate.swift */,
 				E79E521227E26D7100F89909 /* IntroViewController.swift */,
@@ -269,6 +280,7 @@
 			files = (
 				E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */,
 				E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */,
+				E72BA62B27E649FE0097CB79 /* PeripheralStruct.swift in Sources */,
 				E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */,
 				E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */,
 				E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */,
