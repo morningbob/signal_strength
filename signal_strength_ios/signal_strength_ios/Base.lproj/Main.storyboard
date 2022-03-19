@@ -24,7 +24,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ks4-uq-hju">
-                                <rect key="frame" x="129" y="588" width="156" height="38"/>
+                                <rect key="frame" x="129" y="468" width="156" height="38"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Start To Detect">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
@@ -37,7 +37,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ks4-uq-hju" firstAttribute="top" secondItem="c5r-p5-Eov" secondAttribute="bottom" constant="150" id="PAi-7X-5Ed"/>
+                            <constraint firstItem="ks4-uq-hju" firstAttribute="top" secondItem="c5r-p5-Eov" secondAttribute="bottom" constant="30" id="PAi-7X-5Ed"/>
                             <constraint firstItem="c5r-p5-Eov" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="RrB-eK-l2I"/>
                             <constraint firstItem="c5r-p5-Eov" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="acr-rg-b7z"/>
                             <constraint firstItem="ks4-uq-hju" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hYh-hT-SlL"/>
@@ -46,7 +46,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Detect Signals" id="CeG-Lg-Xb3"/>
                     <connections>
-                        <segue destination="CSW-Js-vgF" kind="show" identifier="detectDevicesSegue" id="zhA-Rn-H1a"/>
+                        <segue destination="CSW-Js-vgF" kind="show" identifier="toResultVC" id="zhA-Rn-H1a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -66,14 +66,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PeripheralCellUnit" id="D59-dL-GVj" customClass="PeripheralCell" customModule="signal_strength_ios" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="21"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PeripheralCell" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D59-dL-GVj" id="ZRJ-ur-k0M" customClass="PeripheralCell" customModule="signal_strength_ios" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="21.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoC-6Q-56Z">
-                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="21.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="3Tq-72-iOG"/>
                                                     </constraints>

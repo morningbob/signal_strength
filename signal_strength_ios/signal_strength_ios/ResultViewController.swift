@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreBluetooth
+import CoreData
 
 class ResultViewController: UIViewController , CBCentralManagerDelegate,
     UITableViewDelegate, UITableViewDataSource {
@@ -16,16 +17,13 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     private var centralManager: CBCentralManager!
     private var discoveredPeripherals = [Peripheral]()
     private var discovered = Set<CBPeripheral>()
-    private var appDelegate: AppDelegate!
-    private var dataController: DataController!
-    //private var context : ViewContext!
+    var dataController: DataController!
+    private var existingPeripheralResult = [Peripheral]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate
         
     }
     
@@ -34,30 +32,29 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        var sum: Int
         switch central.state {
         case .poweredOn:
             startScan()
             print("start scaning")
         case .poweredOff:
-            sum = 2
+            centralManager.stopScan()
+            print("stopped scanning")
         case .resetting:
-            sum = 3
+            print("bluetooth is resetting")
         case .unauthorized:
-            sum = 4
+            print("don't have bluetooth permission")
         case .unsupported:
-            sum = 5
+            print("device doesn't have bluetooth")
         case .unknown:
-            sum = 6
+            print("unkown problem")
         default:
-            sum = 7
+            print("unkown problem")
         }
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print("did discovered")
         print("device: \(peripheral.identifier)")
-        //print("rssi: \(peripheral.rssi)")
         //self.discoveredPeripherals.append(peripheral)
         let incomingRSSI = Double(truncating: RSSI)
         print("incoming rssi: \(incomingRSSI)")
@@ -65,13 +62,31 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         //self.discoveredPeripherals = Array(self.discovered).sorted(by: //{$0.identifier.uuidString > $1.identifier.uuidString})
         // create a new peripheral
         //let newDevice = Peripheral(name: peripheral.name, identifier: peripheral.identifier.uuidString, rssi: String(incomingRSSI))
-        let newDevice = Peripheral()
-        newDevice.name = peripheral.name
-        newDevice.identifier = peripheral.identifier.uuidString
-        newDevice.rssi = String(incomingRSSI)
-        self.discoveredPeripherals.append(newDevice)
-        //print(peripheral.readRSSI())
-        tableView.reloadData()
+        
+        // before creating a new device, can check if the device with
+        // the identifier exist
+        let fetchRequest : NSFetchRequest<Peripheral> = Peripheral.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "identifier", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+            existingPeripheralResult = result
+        }
+        if !existingPeripheralResult.isEmpty {
+            print("peripheral already exists")
+        } else {
+        
+            let newDevice = Peripheral(context: dataController.viewContext)
+            newDevice.name = peripheral.name
+            newDevice.identifier = peripheral.identifier.uuidString
+            newDevice.rssi = String(incomingRSSI)
+            
+            try? dataController.viewContext.save()
+            //self.discoveredPeripherals.append(newDevice)
+            //tableView.insertRows(at: [indexPath], with: .fade)
+            
+            tableView.reloadData()
+        }
+        
         
     }
     
@@ -87,7 +102,7 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
 
         cell.rssiLabel?.text = peripheral.rssi
         
-        //tableView.insertRows(at: [indexPath], with: .fade)
+        
         return cell
     }
     
@@ -99,20 +114,8 @@ class PeripheralCell : UITableViewCell {
     @IBOutlet weak var peripheralNameLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
     
-    //override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    //    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    //}
 }
 
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 

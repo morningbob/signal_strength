@@ -22,8 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = window?.rootViewController as! UINavigationController
         
-        //let resultVC = navigationController.children
-        print(navigationController.topViewController?.children)
+        let introVC = navigationController.topViewController as! IntroViewController
+        introVC.dataController = dataController
+        //print(navigationController.topViewController?.children)
         
         guard let _ = (scene as? UIWindowScene) else { return }
     }

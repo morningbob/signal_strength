@@ -10,7 +10,7 @@ import UIKit
 
 class IntroViewController: UIViewController {
     
-    
+    var dataController: DataController!
     
     
     override func viewDidLoad() {
@@ -20,10 +20,15 @@ class IntroViewController: UIViewController {
     }
     
     @IBAction func startDetectButton(_ sender: UIButton) {
-        performSegue(withIdentifier: "detectDevicesSegue", sender: nil)
+        performSegue(withIdentifier: "toResultVC", sender: nil)
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toResultVC" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.dataController = dataController
+        }
+    }
 }
     /*
 extension IntroViewController: CBCentralManagerDelegate {
