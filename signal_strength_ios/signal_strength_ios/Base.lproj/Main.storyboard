@@ -96,11 +96,18 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtU-hM-BfZ">
+                                                            <rect key="frame" x="264" y="0.0" width="150" height="43.5"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="v8J-bx-9VL" firstAttribute="leading" secondItem="VNf-1j-bxF" secondAttribute="trailing" constant="30" id="2io-5a-7BD"/>
+                                                        <constraint firstItem="dtU-hM-BfZ" firstAttribute="top" secondItem="Whu-c6-43e" secondAttribute="top" id="3MU-Si-lv6"/>
                                                         <constraint firstItem="v8J-bx-9VL" firstAttribute="top" secondItem="Whu-c6-43e" secondAttribute="top" constant="10" id="4K9-fa-cA2"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dtU-hM-BfZ" secondAttribute="bottom" id="Ggd-B3-I0i"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dtU-hM-BfZ" secondAttribute="trailing" id="axG-tb-YbI"/>
                                                         <constraint firstItem="VNf-1j-bxF" firstAttribute="top" secondItem="Whu-c6-43e" secondAttribute="top" constant="10" id="bkd-dv-PnE"/>
                                                         <constraint firstItem="VNf-1j-bxF" firstAttribute="leading" secondItem="Whu-c6-43e" secondAttribute="leading" constant="12" id="e4q-ZF-p4C"/>
                                                     </constraints>

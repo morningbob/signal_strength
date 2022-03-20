@@ -57,7 +57,6 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print("did discovered")
         print("device: \(peripheral.identifier)")
-        //self.discoveredPeripherals.append(peripheral)
         let incomingRSSI = Double(truncating: RSSI)
         print("incoming rssi: \(incomingRSSI)")
         //self.discovered.insert(peripheral)
@@ -72,10 +71,11 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     
     func insertNewDeviceOrUpdateOldDevice(newDevice: PeripheralStruct) {
         var found = false
-        var existingDevices = self.currentPeripherals.map { device -> PeripheralStruct in
+        var existingDeviceIndex = 0
+        var existingDevices = self.currentPeripherals.enumerated().map { index, device -> PeripheralStruct in
             if device.identifier == newDevice.identifier {
                 // tableview row should be updated here
-                // how can we get the index
+                existingDeviceIndex = index
                 found = true
                 return newDevice
             } else {
@@ -88,9 +88,13 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
             // append to currentPeripherals, update table
             // add the new device at the end of current list, since it is not
             // added earlier.
-            existingDevices.append(newDevice)
-            self.currentPeripherals = existingDevices
+            self.currentPeripherals.append(newDevice)
             tableView.insertRows(at: [IndexPath(row: self.currentPeripherals.count - 1, section: 0)], with: .fade)
+        } else {
+            self.currentPeripherals[existingDeviceIndex].name = newDevice.name
+            self.currentPeripherals[existingDeviceIndex].rssi = newDevice.rssi
+            //tableView.reloadData()
+            tableView.reloadRows(at: [IndexPath(row: existingDeviceIndex, section: 0)], with: .fade)
         }
         
     }
@@ -104,7 +108,6 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         let peripheral = self.currentPeripherals[(indexPath as NSIndexPath).row]
         
         cell.nameLabel?.text = (peripheral.name != nil) ? peripheral.name : "unkown"
-
         cell.rssiLabel?.text = peripheral.rssi
         
         
