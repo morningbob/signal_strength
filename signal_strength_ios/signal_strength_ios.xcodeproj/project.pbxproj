@@ -10,6 +10,7 @@
 		E72BA62B27E649FE0097CB79 /* PeripheralStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BA62A27E649FE0097CB79 /* PeripheralStruct.swift */; };
 		E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E730DBAE27E5032400DE7F22 /* Peripheral.xcdatamodeld */; };
 		E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E730DBB127E51AE600DE7F22 /* DataController.swift */; };
+		E743FF4227E7B4FB0066DE07 /* PeripheralDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E743FF4127E7B4FB0066DE07 /* PeripheralDetailsViewController.swift */; };
 		E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E520E27E26D7100F89909 /* AppDelegate.swift */; };
 		E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521027E26D7100F89909 /* SceneDelegate.swift */; };
 		E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521227E26D7100F89909 /* IntroViewController.swift */; };
@@ -43,6 +44,7 @@
 		E72BA62A27E649FE0097CB79 /* PeripheralStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralStruct.swift; sourceTree = "<group>"; };
 		E730DBAF27E5032400DE7F22 /* Peripheral.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Peripheral.xcdatamodel; sourceTree = "<group>"; };
 		E730DBB127E51AE600DE7F22 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		E743FF4127E7B4FB0066DE07 /* PeripheralDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralDetailsViewController.swift; sourceTree = "<group>"; };
 		E79E520B27E26D7100F89909 /* signal_strength_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signal_strength_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79E520E27E26D7100F89909 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E79E521027E26D7100F89909 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,30 @@
 			path = structs;
 			sourceTree = "<group>";
 		};
+		E743FF3E27E7B3A00066DE07 /* existingPeripheralsList */ = {
+			isa = PBXGroup;
+			children = (
+				E79E523E27E276B400F89909 /* ResultViewController.swift */,
+			);
+			path = existingPeripheralsList;
+			sourceTree = "<group>";
+		};
+		E743FF3F27E7B3C20066DE07 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				E79E521227E26D7100F89909 /* IntroViewController.swift */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		E743FF4027E7B3E50066DE07 /* peripheralDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E743FF4127E7B4FB0066DE07 /* PeripheralDetailsViewController.swift */,
+			);
+			path = peripheralDetails;
+			sourceTree = "<group>";
+		};
 		E79E520227E26D7100F89909 = {
 			isa = PBXGroup;
 			children = (
@@ -116,15 +142,16 @@
 		E79E520D27E26D7100F89909 /* signal_strength_ios */ = {
 			isa = PBXGroup;
 			children = (
+				E743FF4027E7B3E50066DE07 /* peripheralDetails */,
+				E743FF3F27E7B3C20066DE07 /* home */,
+				E743FF3E27E7B3A00066DE07 /* existingPeripheralsList */,
 				E72BA62927E649B20097CB79 /* structs */,
 				E79E520E27E26D7100F89909 /* AppDelegate.swift */,
 				E79E521027E26D7100F89909 /* SceneDelegate.swift */,
-				E79E521227E26D7100F89909 /* IntroViewController.swift */,
 				E79E521427E26D7100F89909 /* Main.storyboard */,
 				E79E521727E26D7200F89909 /* Assets.xcassets */,
 				E79E521927E26D7200F89909 /* LaunchScreen.storyboard */,
 				E79E521C27E26D7200F89909 /* Info.plist */,
-				E79E523E27E276B400F89909 /* ResultViewController.swift */,
 				E730DBB127E51AE600DE7F22 /* DataController.swift */,
 			);
 			path = signal_strength_ios;
@@ -279,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */,
+				E743FF4227E7B4FB0066DE07 /* PeripheralDetailsViewController.swift in Sources */,
 				E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */,
 				E72BA62B27E649FE0097CB79 /* PeripheralStruct.swift in Sources */,
 				E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */,

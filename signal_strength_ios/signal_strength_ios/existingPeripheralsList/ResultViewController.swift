@@ -109,6 +109,10 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         // if it is near 0, set 9*
         // if it is > -70, acceptable, set 6*
         // -100, not good, set 2*
+        //switch rssiNumber {
+        //case rssiNumber <= 10 && rssiNumber >= -10:
+        //    stars = "*******************"
+        //}
         if (rssiNumber <= 10 && rssiNumber >= -10) {
             // best strength
             stars = "*******************"
@@ -157,11 +161,16 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         return 80.0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // navigate to the particular peripheral, and show it's details
+        let detailsVC = self.storyboard!.instantiateViewController(withIdentifier: "PeripheralDetailsViewController") as! PeripheralDetailsViewController
+        detailsVC.chosenPeripheral = self.currentPeripherals[indexPath.row]
+        self.navigationController!.pushViewController(detailsVC, animated: true)
+    }
+    
 }
 
 class PeripheralCell : UITableViewCell {
-    
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
     @IBOutlet weak var starsLabel: UILabel!
