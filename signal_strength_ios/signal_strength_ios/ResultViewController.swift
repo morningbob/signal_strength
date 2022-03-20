@@ -69,6 +69,8 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         //self.currentPeripherals
     }
     
+    
+    
     func insertNewDeviceOrUpdateOldDevice(newDevice: PeripheralStruct) {
         var found = false
         var existingDeviceIndex = 0
@@ -99,6 +101,41 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         
     }
     
+    func showRSSI(rssi: String) -> String {
+        let rssiNumber = Double(rssi)!
+        var stars = ""
+        // if rssi is near 0, it is the best strength
+        // usually from 0 - 100, and 0 - -100
+        // if it is near 0, set 9*
+        // if it is > -70, acceptable, set 6*
+        // -100, not good, set 2*
+        if (rssiNumber <= 10 && rssiNumber >= -10) {
+            // best strength
+            stars = "*******************"
+        } else if (rssiNumber <= 20 && rssiNumber > 10) || (rssiNumber < -10 && rssiNumber >= -20){
+            stars = "***************"
+        } else if (rssiNumber <= 30 && rssiNumber > 20) || (rssiNumber < -20 && rssiNumber >= -30) {
+            stars = "*************"
+        } else if (rssiNumber <= 40 && rssiNumber > 30) || (rssiNumber < -30 && rssiNumber >= -40) {
+            stars = "**********"
+        } else if (rssiNumber <= 50 && rssiNumber > 40) || (rssiNumber < -40 && rssiNumber > -50) {
+            stars = "********"
+        } else if (rssiNumber <= 60 && rssiNumber > 50) || (rssiNumber < -50 && rssiNumber > -60) {
+            stars = "******"
+        } else if (rssiNumber <= 70 && rssiNumber > 60) || (rssiNumber < -60 && rssiNumber > -70) {
+            stars = "*****"
+        } else if (rssiNumber <= 80 && rssiNumber > 70) || (rssiNumber < -70 && rssiNumber > -80) {
+            stars = "****"
+        } else if (rssiNumber <= 90 && rssiNumber > 80) || (rssiNumber < -80 && rssiNumber > -90) {
+            stars = "***"
+        } else if (rssiNumber <= 100 && rssiNumber > 90) || (rssiNumber < -90 && rssiNumber > -100) {
+            stars = "**"
+        } else {
+            stars = "*"
+        }
+        return stars
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentPeripherals.count
     }
@@ -109,13 +146,15 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         
         cell.nameLabel?.text = (peripheral.name != nil) ? peripheral.name : "unkown"
         cell.rssiLabel?.text = peripheral.rssi
+        var numStars = showRSSI(rssi: peripheral.rssi)
         
+        cell.starsLabel?.text = numStars
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 80.0
     }
     
 }
@@ -125,6 +164,7 @@ class PeripheralCell : UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
+    @IBOutlet weak var starsLabel: UILabel!
 }
 
 
