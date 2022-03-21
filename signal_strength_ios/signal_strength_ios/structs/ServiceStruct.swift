@@ -8,11 +8,11 @@
 import Foundation
 
 struct ServiceStruct: Codable {
-    let serviceUUID : String
-    let serviceDescription : String
+    var serviceUUID : String
+    var serviceDescription : String
     var serviceCharacteristics : [CharacteristicStruct]?
 }
 
 struct CharacteristicStruct: Codable {
-    let charDescription: String
+    var charDescription: String
 }

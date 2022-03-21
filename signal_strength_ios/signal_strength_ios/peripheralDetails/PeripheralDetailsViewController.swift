@@ -10,8 +10,6 @@ import CoreBluetooth
 
 class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
@@ -32,7 +30,12 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         }
     }
     var passedPeripheral : CBPeripheral!
-    var passedRSSI: String!
+    var passedRSSI: String! {
+        didSet {
+            refreshRSSI()
+            print("set new rssi")
+        }
+    }
     private var peripheralServices = [ServiceStruct]()
     //private var peripheralCharacteristics = [String]()
     
@@ -44,11 +47,15 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         
         nameLabel.text = passedPeripheral.name
         idLabel.text = passedPeripheral.identifier.uuidString
+        refreshRSSI()
+    }
+    
+    func refreshRSSI() {
         rssiLabel.text = passedRSSI + "   " + Utilities.app.getRSSIStrength(rssi: passedRSSI)
     }
     
     @IBAction func detectAction(_ sender: Any) {
-        //centralManager
+        startScan()
     }
     
     @IBAction func connectAction(_ sender: Any) {
@@ -89,7 +96,9 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
+        if (peripheral.identifier == passedPeripheral.identifier) {
+            
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -127,14 +136,21 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
             return
         }
         // here we get the particular service from our list using description
-        for serviceStruct in self.peripheralServices {
+        var charStructList = [CharacteristicStruct]()
+        // i created a copy of the struct since the struct is a reference type,
+        // i can't change its properties.
+        for i in 0...self.peripheralServices.count {
+            let serviceStruct = self.peripheralServices[i]
             if (service.uuid.uuidString == serviceStruct.serviceUUID) {
+                var serviceCopy = serviceStruct
                 for characteristic in characteristics {
                     print("characteristic: \(characteristic.description)")
                     //self.peripheralCharacteristics.append(characteristic.description)
                     let charStruct = CharacteristicStruct(charDescription: characteristic.description)
-                    serviceStruct.serviceCharacteristics?.append(charStruct)
+                    charStructList.append(charStruct)
                 }
+                serviceCopy.serviceCharacteristics = charStructList
+                self.peripheralServices[i] = serviceCopy
                 break
             }
         }

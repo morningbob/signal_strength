@@ -116,6 +116,8 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // we stop the scanning before navigating away
+        centralManager.stopScan()
         // navigate to the particular peripheral, and show it's details
         let detailsVC = self.storyboard!.instantiateViewController(withIdentifier: "PeripheralDetailsViewController") as! PeripheralDetailsViewController
         detailsVC.passedPeripheral = self.currentCBPeripherals[indexPath.row]
