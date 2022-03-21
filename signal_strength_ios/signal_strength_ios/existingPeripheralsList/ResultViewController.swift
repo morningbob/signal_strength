@@ -15,11 +15,12 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     
     @IBOutlet weak var tableView: UITableView!
     private var centralManager: CBCentralManager!
-    private var discoveredPeripherals = [CBPeripheral]()
-    private var discoveredSet = Set<CBPeripheral>()
+    private var currentCBPeripherals = [CBPeripheral]()
     private var currentPeripherals = [PeripheralStruct]()
     var dataController: DataController!
-    private var existingPeripheralResult = [Peripheral]()
+    //private var chosenPeripheral: CBPeripheral!
+    //private var chosenPeripheralRSSI : String!
+    private var rssiList = [String]()
     
     
     override func viewDidLoad() {
@@ -64,17 +65,18 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         // create a new peripheral
         //let newDevice = Peripheral(name: peripheral.name, identifier: peripheral.identifce(: PeripheralStruct) {
         // check if the device is already exist:
-        let newDevice = PeripheralStruct(name: peripheral.name, identifier: peripheral.identifier.uuidString, rssi: String(incomingRSSI))
-        insertNewDeviceOrUpdateOldDevice(newDevice: newDevice)
+        //let newDevice = PeripheralStruct(name: peripheral.name, identifier: peripheral.identifier.uuidString, rssi: String(incomingRSSI))
+        insertNewDeviceOrUpdateOldDevice(newDevice: peripheral, rssi: String(incomingRSSI))
+        
         //self.currentPeripherals
     }
     
     
     
-    func insertNewDeviceOrUpdateOldDevice(newDevice: PeripheralStruct) {
+    func insertNewDeviceOrUpdateOldDevice(newDevice: CBPeripheral, rssi: String) {
         var found = false
         var existingDeviceIndex = 0
-        var existingDevices = self.currentPeripherals.enumerated().map { index, device -> PeripheralStruct in
+        var existingDevices = self.currentCBPeripherals.enumerated().map { index, device -> CBPeripheral in
             if device.identifier == newDevice.identifier {
                 // tableview row should be updated here
                 existingDeviceIndex = index
@@ -90,11 +92,15 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
             // append to currentPeripherals, update table
             // add the new device at the end of current list, since it is not
             // added earlier.
-            self.currentPeripherals.append(newDevice)
-            tableView.insertRows(at: [IndexPath(row: self.currentPeripherals.count - 1, section: 0)], with: .fade)
+            self.currentCBPeripherals.append(newDevice)
+            self.rssiList.append(rssi)
+            tableView.insertRows(at: [IndexPath(row: self.currentCBPeripherals.count - 1, section: 0)], with: .fade)
         } else {
-            self.currentPeripherals[existingDeviceIndex].name = newDevice.name
-            self.currentPeripherals[existingDeviceIndex].rssi = newDevice.rssi
+            // instead of updating CB P's value, we can replace the P variable
+            self.currentCBPeripherals[existingDeviceIndex] = newDevice
+            self.rssiList[existingDeviceIndex] = rssi
+            //self.currentCBPeripherals[existingDeviceIndex].name = newDevice.name
+            //self.currentCBPeripherals[existingDeviceIndex].rssi = rssi
             //tableView.reloadData()
             tableView.reloadRows(at: [IndexPath(row: existingDeviceIndex, section: 0)], with: .fade)
         }
@@ -141,16 +147,16 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentPeripherals.count
+        return currentCBPeripherals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : PeripheralCell! = tableView .dequeueReusableCell(withIdentifier: "PeripheralCellUnit", for: indexPath) as? PeripheralCell
-        let peripheral = self.currentPeripherals[(indexPath as NSIndexPath).row]
+        let peripheral = self.currentCBPeripherals[(indexPath as NSIndexPath).row]
         
         cell.nameLabel?.text = (peripheral.name != nil) ? peripheral.name : "unkown"
-        cell.rssiLabel?.text = peripheral.rssi
-        var numStars = showRSSI(rssi: peripheral.rssi)
+        cell.rssiLabel?.text = rssiList[indexPath.row]
+        var numStars = showRSSI(rssi: rssiList[indexPath.row])
         
         cell.starsLabel?.text = numStars
         
@@ -164,7 +170,10 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // navigate to the particular peripheral, and show it's details
         let detailsVC = self.storyboard!.instantiateViewController(withIdentifier: "PeripheralDetailsViewController") as! PeripheralDetailsViewController
-        detailsVC.chosenPeripheral = self.currentPeripherals[indexPath.row]
+        detailsVC.passedPeripheral = self.currentCBPeripherals[indexPath.row]
+        detailsVC.passedRSSI = self.rssiList[indexPath.row]
+        //detailsVC.chosenPeripheral = self.currentPeripherals[indexPath.row]
+        //detailsVC.passedPeripheral =
         self.navigationController!.pushViewController(detailsVC, animated: true)
     }
     

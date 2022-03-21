@@ -21,16 +21,23 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         }
     }
     private var centralManager: CBCentralManager!
-    private var connectedPeripheral: CBPeripheral!
+    private var connectedPeripheral: CBPeripheral! {
+        didSet {
+            print("got connected CB P")
+            // start to explore services
+        }
+    }
+    var passedPeripheral : CBPeripheral!
+    var passedRSSI: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
 
-        nameLabel.text = chosenPeripheral.name
-        idLabel.text = chosenPeripheral.identifier
-        rssiLabel.text = chosenPeripheral.rssi + "   " + showRSSI(rssi: chosenPeripheral.rssi)
+        nameLabel.text = passedPeripheral.name
+        idLabel.text = passedPeripheral.identifier.uuidString
+        rssiLabel.text = passedRSSI + "   " + showRSSI(rssi: passedRSSI)
     }
     
     @IBAction func detectAction(_ sender: Any) {
@@ -38,20 +45,30 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     }
     
     @IBAction func connectAction(_ sender: Any) {
-        centralManager.connect(self.chosenCBPeripheral)
+        centralManager.connect(passedPeripheral)
+        // after connected, read rssi
+    }
+    
+    @IBAction func disconnectAction(_ sender: Any) {
+        centralManager.cancelPeripheralConnection(passedPeripheral)
     }
     
     private func startScan() {
         centralManager.scanForPeripherals(withServices: nil)
     }
     
+    func exploreServices() {
+        
+    }
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
-            startScan()
-            print("start scanning")
+            //startScan()
+            //print("start scanning")
+            print("power on")
         case .poweredOff:
-            centralManager.stopScan()
+            //centralManager.stopScan()
             print("stopped scanning")
         case .resetting:
             print("bluetooth is resetting")
@@ -106,10 +123,10 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if peripheral.identifier == UUID(uuidString: chosenPeripheral.identifier){
-            print("got the chosen device")
-            self.chosenCBPeripheral = peripheral
-        }
+        //if peripheral.identifier == UUID(uuidString: chosenPeripheral.identifier){
+        //    print("got the chosen device")
+        //    self.chosenCBPeripheral = peripheral
+        //}
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -119,6 +136,11 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("failed to connect \(error?.localizedDescription)")
+        // display an alert to user
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("There is error disconnecting: \(error?.localizedDescription)")
     }
 
 }

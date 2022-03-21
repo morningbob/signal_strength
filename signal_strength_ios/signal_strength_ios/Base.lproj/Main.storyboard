@@ -203,6 +203,19 @@
                                     <action selector="detectAction:" destination="KrJ-cA-NjE" eventType="touchUpInside" id="6xH-r1-k8P"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVD-Vw-Y2P">
+                                <rect key="frame" x="157" y="571.5" width="100" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="gJE-KD-wWR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Disconnect"/>
+                                <connections>
+                                    <action selector="connectAction:" destination="KrJ-cA-NjE" eventType="touchUpInside" id="GUt-et-yyd"/>
+                                    <action selector="detectAction:" destination="KrJ-cA-NjE" eventType="touchUpInside" id="8uv-Vq-N8I"/>
+                                    <action selector="disconnectAction:" destination="KrJ-cA-NjE" eventType="touchUpInside" id="lU1-vh-9bb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9mh-ev-Llc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -214,6 +227,7 @@
                             <constraint firstItem="IY8-Gv-qfs" firstAttribute="centerX" secondItem="lHj-dd-3pf" secondAttribute="centerX" id="9K2-BT-s7c"/>
                             <constraint firstItem="GFW-AI-YVF" firstAttribute="top" secondItem="hv1-y0-z2O" secondAttribute="bottom" constant="40" id="BWV-FK-6SQ"/>
                             <constraint firstItem="gfo-mL-AJI" firstAttribute="top" secondItem="GFW-AI-YVF" secondAttribute="bottom" constant="30" id="CmO-8Q-mI9"/>
+                            <constraint firstItem="oVD-Vw-Y2P" firstAttribute="top" secondItem="IY8-Gv-qfs" secondAttribute="bottom" constant="30" id="HrC-XQ-881"/>
                             <constraint firstItem="gfo-mL-AJI" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="80" id="MYZ-OL-RNz"/>
                             <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="79a-S3-Z2i" secondAttribute="trailing" constant="130" id="Q0R-FS-TbH"/>
                             <constraint firstItem="GFW-AI-YVF" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="130" id="R2e-iZ-n9P"/>
@@ -223,6 +237,7 @@
                             <constraint firstItem="6qx-Rw-epb" firstAttribute="top" secondItem="79a-S3-Z2i" secondAttribute="bottom" constant="30" id="cKt-xq-42M"/>
                             <constraint firstItem="GFW-AI-YVF" firstAttribute="centerX" secondItem="lHj-dd-3pf" secondAttribute="centerX" id="hiY-Eo-pae"/>
                             <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="GFW-AI-YVF" secondAttribute="trailing" constant="130" id="kAE-qP-7La"/>
+                            <constraint firstItem="oVD-Vw-Y2P" firstAttribute="centerX" secondItem="lHj-dd-3pf" secondAttribute="centerX" id="pcC-ak-3n4"/>
                             <constraint firstItem="IY8-Gv-qfs" firstAttribute="top" secondItem="6qx-Rw-epb" secondAttribute="bottom" constant="30" id="r9P-Ip-0Yb"/>
                             <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="gfo-mL-AJI" secondAttribute="trailing" constant="80" id="x1c-3V-3Jh"/>
                         </constraints>
