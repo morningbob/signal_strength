@@ -11,6 +11,8 @@
 		E730DBB027E5032400DE7F22 /* Peripheral.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E730DBAE27E5032400DE7F22 /* Peripheral.xcdatamodeld */; };
 		E730DBB227E51AE600DE7F22 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E730DBB127E51AE600DE7F22 /* DataController.swift */; };
 		E743FF4227E7B4FB0066DE07 /* PeripheralDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E743FF4127E7B4FB0066DE07 /* PeripheralDetailsViewController.swift */; };
+		E797CD3E27E8F23500EFF9CE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E797CD3D27E8F23500EFF9CE /* Utilities.swift */; };
+		E797CD4027E906BF00EFF9CE /* ServiceStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E797CD3F27E906BF00EFF9CE /* ServiceStruct.swift */; };
 		E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E520E27E26D7100F89909 /* AppDelegate.swift */; };
 		E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521027E26D7100F89909 /* SceneDelegate.swift */; };
 		E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79E521227E26D7100F89909 /* IntroViewController.swift */; };
@@ -45,6 +47,8 @@
 		E730DBAF27E5032400DE7F22 /* Peripheral.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Peripheral.xcdatamodel; sourceTree = "<group>"; };
 		E730DBB127E51AE600DE7F22 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		E743FF4127E7B4FB0066DE07 /* PeripheralDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralDetailsViewController.swift; sourceTree = "<group>"; };
+		E797CD3D27E8F23500EFF9CE /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E797CD3F27E906BF00EFF9CE /* ServiceStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStruct.swift; sourceTree = "<group>"; };
 		E79E520B27E26D7100F89909 /* signal_strength_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = signal_strength_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79E520E27E26D7100F89909 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E79E521027E26D7100F89909 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				E72BA62A27E649FE0097CB79 /* PeripheralStruct.swift */,
+				E797CD3F27E906BF00EFF9CE /* ServiceStruct.swift */,
 			);
 			path = structs;
 			sourceTree = "<group>";
@@ -118,6 +123,14 @@
 			path = peripheralDetails;
 			sourceTree = "<group>";
 		};
+		E797CD3C27E8F21700EFF9CE /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E797CD3D27E8F23500EFF9CE /* Utilities.swift */,
+			);
+			path = utilities;
+			sourceTree = "<group>";
+		};
 		E79E520227E26D7100F89909 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +155,7 @@
 		E79E520D27E26D7100F89909 /* signal_strength_ios */ = {
 			isa = PBXGroup;
 			children = (
+				E797CD3C27E8F21700EFF9CE /* utilities */,
 				E743FF4027E7B3E50066DE07 /* peripheralDetails */,
 				E743FF3F27E7B3C20066DE07 /* home */,
 				E743FF3E27E7B3A00066DE07 /* existingPeripheralsList */,
@@ -311,7 +325,9 @@
 				E72BA62B27E649FE0097CB79 /* PeripheralStruct.swift in Sources */,
 				E79E521327E26D7100F89909 /* IntroViewController.swift in Sources */,
 				E79E520F27E26D7100F89909 /* AppDelegate.swift in Sources */,
+				E797CD3E27E8F23500EFF9CE /* Utilities.swift in Sources */,
 				E79E521127E26D7100F89909 /* SceneDelegate.swift in Sources */,
+				E797CD4027E906BF00EFF9CE /* ServiceStruct.swift in Sources */,
 				E79E523F27E276B400F89909 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

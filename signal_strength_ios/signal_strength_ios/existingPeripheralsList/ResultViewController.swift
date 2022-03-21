@@ -16,10 +16,7 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
     @IBOutlet weak var tableView: UITableView!
     private var centralManager: CBCentralManager!
     private var currentCBPeripherals = [CBPeripheral]()
-    private var currentPeripherals = [PeripheralStruct]()
     var dataController: DataController!
-    //private var chosenPeripheral: CBPeripheral!
-    //private var chosenPeripheralRSSI : String!
     private var rssiList = [String]()
     
     
@@ -60,18 +57,9 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         print("device: \(peripheral.identifier)")
         let incomingRSSI = Double(truncating: RSSI)
         print("incoming rssi: \(incomingRSSI)")
-        //self.discovered.insert(peripheral)
-        //self.discoveredPeripherals = Array(self.discovered).sorted(by: //{$0.identifier.uuidString > $1.identifier.uuidString})
-        // create a new peripheral
-        //let newDevice = Peripheral(name: peripheral.name, identifier: peripheral.identifce(: PeripheralStruct) {
-        // check if the device is already exist:
-        //let newDevice = PeripheralStruct(name: peripheral.name, identifier: peripheral.identifier.uuidString, rssi: String(incomingRSSI))
         insertNewDeviceOrUpdateOldDevice(newDevice: peripheral, rssi: String(incomingRSSI))
         
-        //self.currentPeripherals
     }
-    
-    
     
     func insertNewDeviceOrUpdateOldDevice(newDevice: CBPeripheral, rssi: String) {
         var found = false
@@ -101,49 +89,9 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
             self.rssiList[existingDeviceIndex] = rssi
             //self.currentCBPeripherals[existingDeviceIndex].name = newDevice.name
             //self.currentCBPeripherals[existingDeviceIndex].rssi = rssi
-            //tableView.reloadData()
             tableView.reloadRows(at: [IndexPath(row: existingDeviceIndex, section: 0)], with: .fade)
         }
         
-    }
-    
-    func showRSSI(rssi: String) -> String {
-        let rssiNumber = Double(rssi)!
-        var stars = ""
-        // if rssi is near 0, it is the best strength
-        // usually from 0 - 100, and 0 - -100
-        // if it is near 0, set 9*
-        // if it is > -70, acceptable, set 6*
-        // -100, not good, set 2*
-        //switch rssiNumber {
-        //case rssiNumber <= 10 && rssiNumber >= -10:
-        //    stars = "*******************"
-        //}
-        if (rssiNumber <= 10 && rssiNumber >= -10) {
-            // best strength
-            stars = "*******************"
-        } else if (rssiNumber <= 20 && rssiNumber > 10) || (rssiNumber < -10 && rssiNumber >= -20){
-            stars = "***************"
-        } else if (rssiNumber <= 30 && rssiNumber > 20) || (rssiNumber < -20 && rssiNumber >= -30) {
-            stars = "*************"
-        } else if (rssiNumber <= 40 && rssiNumber > 30) || (rssiNumber < -30 && rssiNumber >= -40) {
-            stars = "**********"
-        } else if (rssiNumber <= 50 && rssiNumber > 40) || (rssiNumber < -40 && rssiNumber > -50) {
-            stars = "********"
-        } else if (rssiNumber <= 60 && rssiNumber > 50) || (rssiNumber < -50 && rssiNumber > -60) {
-            stars = "******"
-        } else if (rssiNumber <= 70 && rssiNumber > 60) || (rssiNumber < -60 && rssiNumber > -70) {
-            stars = "*****"
-        } else if (rssiNumber <= 80 && rssiNumber > 70) || (rssiNumber < -70 && rssiNumber > -80) {
-            stars = "****"
-        } else if (rssiNumber <= 90 && rssiNumber > 80) || (rssiNumber < -80 && rssiNumber > -90) {
-            stars = "***"
-        } else if (rssiNumber <= 100 && rssiNumber > 90) || (rssiNumber < -90 && rssiNumber > -100) {
-            stars = "**"
-        } else {
-            stars = "*"
-        }
-        return stars
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -156,8 +104,8 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         
         cell.nameLabel?.text = (peripheral.name != nil) ? peripheral.name : "unkown"
         cell.rssiLabel?.text = rssiList[indexPath.row]
-        var numStars = showRSSI(rssi: rssiList[indexPath.row])
-        
+        //var numStars = showRSSI(rssi: rssiList[indexPath.row])
+        var numStars = Utilities.app.getRSSIStrength(rssi: rssiList[indexPath.row])
         cell.starsLabel?.text = numStars
         
         return cell
@@ -172,8 +120,6 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         let detailsVC = self.storyboard!.instantiateViewController(withIdentifier: "PeripheralDetailsViewController") as! PeripheralDetailsViewController
         detailsVC.passedPeripheral = self.currentCBPeripherals[indexPath.row]
         detailsVC.passedRSSI = self.rssiList[indexPath.row]
-        //detailsVC.chosenPeripheral = self.currentPeripherals[indexPath.row]
-        //detailsVC.passedPeripheral =
         self.navigationController!.pushViewController(detailsVC, animated: true)
     }
     

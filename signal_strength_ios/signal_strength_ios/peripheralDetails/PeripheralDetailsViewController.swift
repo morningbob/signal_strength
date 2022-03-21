@@ -8,11 +8,14 @@
 import UIKit
 import CoreBluetooth
 
-class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegate {
+class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var rssiLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var chosenPeripheral : PeripheralStruct!
     var chosenCBPeripheral : CBPeripheral! {
@@ -25,19 +28,23 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         didSet {
             print("got connected CB P")
             // start to explore services
+            self.exploreServices()
         }
     }
     var passedPeripheral : CBPeripheral!
     var passedRSSI: String!
+    private var peripheralServices = [ServiceStruct]()
+    //private var peripheralCharacteristics = [String]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
-
+        
         nameLabel.text = passedPeripheral.name
         idLabel.text = passedPeripheral.identifier.uuidString
-        rssiLabel.text = passedRSSI + "   " + showRSSI(rssi: passedRSSI)
+        rssiLabel.text = passedRSSI + "   " + Utilities.app.getRSSIStrength(rssi: passedRSSI)
     }
     
     @IBAction func detectAction(_ sender: Any) {
@@ -58,14 +65,12 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     }
     
     func exploreServices() {
-        
+        connectedPeripheral.discoverServices(nil)
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
-            //startScan()
-            //print("start scanning")
             print("power on")
         case .poweredOff:
             //centralManager.stopScan()
@@ -83,55 +88,14 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         }
     }
     
-    func showRSSI(rssi: String) -> String {
-        let rssiNumber = Double(rssi)!
-        var stars = ""
-        // if rssi is near 0, it is the best strength
-        // usually from 0 - 100, and 0 - -100
-        // if it is near 0, set 9*
-        // if it is > -70, acceptable, set 6*
-        // -100, not good, set 2*
-        //switch rssiNumber {
-        //case rssiNumber <= 10 && rssiNumber >= -10:
-        //    stars = "*******************"
-        //}
-        if (rssiNumber <= 10 && rssiNumber >= -10) {
-            // best strength
-            stars = "*******************"
-        } else if (rssiNumber <= 20 && rssiNumber > 10) || (rssiNumber < -10 && rssiNumber >= -20){
-            stars = "***************"
-        } else if (rssiNumber <= 30 && rssiNumber > 20) || (rssiNumber < -20 && rssiNumber >= -30) {
-            stars = "*************"
-        } else if (rssiNumber <= 40 && rssiNumber > 30) || (rssiNumber < -30 && rssiNumber >= -40) {
-            stars = "**********"
-        } else if (rssiNumber <= 50 && rssiNumber > 40) || (rssiNumber < -40 && rssiNumber > -50) {
-            stars = "********"
-        } else if (rssiNumber <= 60 && rssiNumber > 50) || (rssiNumber < -50 && rssiNumber > -60) {
-            stars = "******"
-        } else if (rssiNumber <= 70 && rssiNumber > 60) || (rssiNumber < -60 && rssiNumber > -70) {
-            stars = "*****"
-        } else if (rssiNumber <= 80 && rssiNumber > 70) || (rssiNumber < -70 && rssiNumber > -80) {
-            stars = "****"
-        } else if (rssiNumber <= 90 && rssiNumber > 80) || (rssiNumber < -80 && rssiNumber > -90) {
-            stars = "***"
-        } else if (rssiNumber <= 100 && rssiNumber > 90) || (rssiNumber < -90 && rssiNumber > -100) {
-            stars = "**"
-        } else {
-            stars = "*"
-        }
-        return stars
-    }
-    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        //if peripheral.identifier == UUID(uuidString: chosenPeripheral.identifier){
-        //    print("got the chosen device")
-        //    self.chosenCBPeripheral = peripheral
-        //}
+        
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("successfully connected")
         self.connectedPeripheral = peripheral
+        peripheral.delegate = self
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -142,5 +106,67 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("There is error disconnecting: \(error?.localizedDescription)")
     }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else {
+            print("error: \(error?.localizedDescription)")
+            return
+        }
+        print("discovered services")
+        services.map { service in
+            let newService = ServiceStruct(serviceUUID: service.uuid.uuidString, serviceDescription: service.description, serviceCharacteristics: nil)
+            self.peripheralServices.append(newService)
+        }
+        self.discoverCharacteristics(peripheral: peripheral)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        
+        guard let characteristics = service.characteristics else {
+            print("Service \(service.description) has no characteristics")
+            return
+        }
+        // here we get the particular service from our list using description
+        for serviceStruct in self.peripheralServices {
+            if (service.uuid.uuidString == serviceStruct.serviceUUID) {
+                for characteristic in characteristics {
+                    print("characteristic: \(characteristic.description)")
+                    //self.peripheralCharacteristics.append(characteristic.description)
+                    let charStruct = CharacteristicStruct(charDescription: characteristic.description)
+                    serviceStruct.serviceCharacteristics?.append(charStruct)
+                }
+                break
+            }
+        }
+        
+    }
 
+    func discoverCharacteristics(peripheral: CBPeripheral) {
+        // we create service struct and charStruct here
+        guard let services = peripheral.services else {
+            return
+        }
+        for service in services {
+            peripheral.discoverCharacteristics(nil, for: service)
+            print("service: \(service.description)")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.peripheralServices.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell : ServiceCell! = tableView.dequeueReusableCell(withIdentifier: "ServiceCellUnit", for: indexPath) as! ServiceCell
+        let service = self.peripheralServices[(indexPath as NSIndexPath).row]
+        // configure service display here
+        cell.serviceLabel.text = "Service: \(service.serviceDescription)\n Characteristics: \(service.serviceCharacteristics)"
+        return cell
+    }
+}
+
+class ServiceCell : UITableViewCell {
+    
+    @IBOutlet weak var serviceLabel: UILabel!
 }
