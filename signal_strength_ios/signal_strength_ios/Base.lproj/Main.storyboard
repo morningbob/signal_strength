@@ -162,13 +162,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identifier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfo-mL-AJI">
-                                <rect key="frame" x="80" y="298.5" width="254" height="20.5"/>
+                                <rect key="frame" x="50" y="298.5" width="314" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RSSI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79a-S3-Z2i">
-                                <rect key="frame" x="130" y="349" width="154" height="20.5"/>
+                                <rect key="frame" x="80" y="349" width="254" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -271,10 +271,10 @@
                             <constraint firstItem="GFW-AI-YVF" firstAttribute="top" secondItem="hv1-y0-z2O" secondAttribute="bottom" constant="40" id="BWV-FK-6SQ"/>
                             <constraint firstItem="gfo-mL-AJI" firstAttribute="top" secondItem="GFW-AI-YVF" secondAttribute="bottom" constant="30" id="CmO-8Q-mI9"/>
                             <constraint firstItem="6qx-Rw-epb" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="30" id="EHA-t7-mZj"/>
-                            <constraint firstItem="gfo-mL-AJI" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="80" id="MYZ-OL-RNz"/>
-                            <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="79a-S3-Z2i" secondAttribute="trailing" constant="130" id="Q0R-FS-TbH"/>
+                            <constraint firstItem="gfo-mL-AJI" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="50" id="MYZ-OL-RNz"/>
+                            <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="79a-S3-Z2i" secondAttribute="trailing" constant="80" id="Q0R-FS-TbH"/>
                             <constraint firstItem="GFW-AI-YVF" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="130" id="R2e-iZ-n9P"/>
-                            <constraint firstItem="79a-S3-Z2i" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="130" id="RQo-ax-EHv"/>
+                            <constraint firstItem="79a-S3-Z2i" firstAttribute="leading" secondItem="9mh-ev-Llc" secondAttribute="leading" constant="80" id="RQo-ax-EHv"/>
                             <constraint firstItem="IY8-Gv-qfs" firstAttribute="top" secondItem="79a-S3-Z2i" secondAttribute="bottom" constant="30" id="UpV-gf-E5f"/>
                             <constraint firstItem="gfo-mL-AJI" firstAttribute="centerX" secondItem="lHj-dd-3pf" secondAttribute="centerX" id="YQL-HK-J6c"/>
                             <constraint firstItem="hv1-y0-z2O" firstAttribute="top" secondItem="9mh-ev-Llc" secondAttribute="top" constant="20" id="ajJ-lr-Dal"/>
@@ -286,14 +286,14 @@
                             <constraint firstItem="oVD-Vw-Y2P" firstAttribute="leading" secondItem="IY8-Gv-qfs" secondAttribute="trailing" constant="20" id="kJn-sl-57W"/>
                             <constraint firstItem="6qx-Rw-epb" firstAttribute="top" secondItem="79a-S3-Z2i" secondAttribute="bottom" constant="30" id="ps0-nd-7uw"/>
                             <constraint firstItem="IY8-Gv-qfs" firstAttribute="leading" secondItem="6qx-Rw-epb" secondAttribute="trailing" constant="20" id="qCX-SU-z3P"/>
-                            <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="gfo-mL-AJI" secondAttribute="trailing" constant="80" id="x1c-3V-3Jh"/>
+                            <constraint firstItem="9mh-ev-Llc" firstAttribute="trailing" secondItem="gfo-mL-AJI" secondAttribute="trailing" constant="50" id="x1c-3V-3Jh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chosen Peripheral" id="Vzf-j5-WZy"/>
                     <connections>
                         <outlet property="idLabel" destination="gfo-mL-AJI" id="bTJ-m2-Ltc"/>
                         <outlet property="nameLabel" destination="GFW-AI-YVF" id="GTz-Lh-kgV"/>
-                        <outlet property="rssiLabel" destination="79a-S3-Z2i" id="xw7-zx-px7"/>
+                        <outlet property="rssiLabel" destination="79a-S3-Z2i" id="TWb-5z-01d"/>
                         <outlet property="tableView" destination="xSW-GH-6IC" id="LZ6-54-SYS"/>
                     </connections>
                 </viewController>

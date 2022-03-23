@@ -12,9 +12,9 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
-    @IBOutlet weak var rssiLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var rssiLabel: UILabel!
     var chosenPeripheral : PeripheralStruct!
     var chosenCBPeripheral : CBPeripheral! {
         didSet {
@@ -32,8 +32,9 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     var passedPeripheral : CBPeripheral!
     var passedRSSI: String! {
         didSet {
-            refreshRSSI()
             print("set new rssi")
+            refreshRSSI()
+            
         }
     }
     private var peripheralServices = [ServiceStruct]()
@@ -47,15 +48,18 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         
         nameLabel.text = passedPeripheral.name
         idLabel.text = passedPeripheral.identifier.uuidString
+        //print("passedRSSI: \(passedRSSI)")
+        //rssiLabel.text = passedRSSI + "   " + Utilities.app.getRSSIStrength(rssi: passedRSSI)
         refreshRSSI()
     }
     
     func refreshRSSI() {
-        rssiLabel.text = passedRSSI + "   " + Utilities.app.getRSSIStrength(rssi: passedRSSI)
+        print("passedRSSI: refresh \(passedRSSI)")
+        rssiLabel?.text = passedRSSI + "   " + Utilities.app.getRSSIStrength(rssi: passedRSSI)
     }
     
     @IBAction func detectAction(_ sender: Any) {
-        startScan()
+        //startScan()
     }
     
     @IBAction func connectAction(_ sender: Any) {
@@ -97,7 +101,10 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if (peripheral.identifier == passedPeripheral.identifier) {
-            
+            // update rssi
+            let incomingRSSI = Double(truncating: RSSI)
+            print("rssi: \(incomingRSSI)")
+            passedRSSI = String(incomingRSSI)
         }
     }
     
@@ -142,14 +149,15 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         for i in 0...self.peripheralServices.count {
             let serviceStruct = self.peripheralServices[i]
             if (service.uuid.uuidString == serviceStruct.serviceUUID) {
-                var serviceCopy = serviceStruct
+                
                 for characteristic in characteristics {
                     print("characteristic: \(characteristic.description)")
                     //self.peripheralCharacteristics.append(characteristic.description)
                     let charStruct = CharacteristicStruct(charDescription: characteristic.description)
                     charStructList.append(charStruct)
                 }
-                serviceCopy.serviceCharacteristics = charStructList
+                let serviceCopy = ServiceStruct(serviceUUID: service.uuid.uuidString, serviceDescription: service.description, serviceCharacteristics: charStructList)
+                //serviceCopy.serviceCharacteristics = charStructList
                 self.peripheralServices[i] = serviceCopy
                 break
             }
