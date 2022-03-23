@@ -48,8 +48,6 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
         
         nameLabel.text = passedPeripheral.name
         idLabel.text = passedPeripheral.identifier.uuidString
-        //print("passedRSSI: \(passedRSSI)")
-        //rssiLabel.text = passedRSSI + "   " + Utilities.app.getRSSIStrength(rssi: passedRSSI)
         refreshRSSI()
     }
     
@@ -59,12 +57,12 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
     }
     
     @IBAction func detectAction(_ sender: Any) {
-        //startScan()
+        startScan()
     }
+    
     
     @IBAction func connectAction(_ sender: Any) {
         centralManager.connect(passedPeripheral)
-        // after connected, read rssi
     }
     
     @IBAction func disconnectAction(_ sender: Any) {
@@ -107,6 +105,8 @@ class PeripheralDetailsViewController: UIViewController, CBCentralManagerDelegat
             passedRSSI = String(incomingRSSI)
         }
     }
+    
+    
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("successfully connected")

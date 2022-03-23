@@ -87,8 +87,6 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
             // instead of updating CB P's value, we can replace the P variable
             self.currentCBPeripherals[existingDeviceIndex] = newDevice
             self.rssiList[existingDeviceIndex] = rssi
-            //self.currentCBPeripherals[existingDeviceIndex].name = newDevice.name
-            //self.currentCBPeripherals[existingDeviceIndex].rssi = rssi
             tableView.reloadRows(at: [IndexPath(row: existingDeviceIndex, section: 0)], with: .fade)
         }
         
@@ -104,7 +102,6 @@ class ResultViewController: UIViewController , CBCentralManagerDelegate,
         
         cell.nameLabel?.text = (peripheral.name != nil) ? peripheral.name : "unkown"
         cell.rssiLabel?.text = rssiList[indexPath.row]
-        //var numStars = showRSSI(rssi: rssiList[indexPath.row])
         var numStars = Utilities.app.getRSSIStrength(rssi: rssiList[indexPath.row])
         cell.starsLabel?.text = numStars
         
